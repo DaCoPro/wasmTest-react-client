@@ -1,24 +1,23 @@
-import logo from './logo.svg';
+
 import './App.css';
+import {useState} from 'react';
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+  const [sum, setSum] = useState(0);
+   const [fib, setFib] = useState(0);
+  import('wasm').then(({add_two_ints, fib}) => {
+      const sumResult = add_two_ints(5, 20);
+      const fibResult = fib(10);
+      setSum(sumResult);
+      setFib(fibResult);
+  })
+   return (
+      // I cut out the fluff
+      // Displaying our sum and fib values that're updated by WASM
+      <div className="App" >
+         <div>Sum Results: {sum}</div>
+         <div>Fib Results: {fib}</div>
+      </div>
   );
 }
 
